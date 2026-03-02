@@ -95,7 +95,6 @@ Credenciais de desenvolvimento: `postgresql://testmaker:testmaker123@localhost:5
 
 | Documento | Descricao |
 |-----------|-----------|
-| [FRESH_INSTALL.md](FRESH_INSTALL.md) | Instalacao em maquina nova, ambientes virtuais, configuracao |
 | [docs/COMO_RODAR.md](docs/COMO_RODAR.md) | Guia detalhado de execucao e troubleshooting |
 | [docs/SERVICES_ARCHITECTURE.md](docs/SERVICES_ARCHITECTURE.md) | Arquitetura completa, endpoints, fluxo de dados |
 | [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md) | Guia de testes manuais e automatizados |
