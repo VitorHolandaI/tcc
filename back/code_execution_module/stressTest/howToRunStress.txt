@@ -1,0 +1,10 @@
+1998  sudo apt install sysstat
+ 1999  pgrep -f uvicorn
+ 2000  pidstat -r -d -u -p 29305 1 > stress_report.txt
+ 2001  pidstat -r -d -u -p 29305 1 
+
+shoud run the locust test for 1 hour in load store it for analisys
+
+locust -f locust.py --host http://localhost:8000
+
+

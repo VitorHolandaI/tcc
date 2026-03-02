@@ -1,0 +1,26 @@
+# FastAPI and server
+fastapi==0.115.12
+uvicorn==0.34.0
+
+# Database
+sqlalchemy==2.0.40
+psycopg2-binary>=2.9.11  # Python 3.13 requires >= 2.9.11
+
+# Validation and serialization
+pydantic==2.12.5
+pydantic[email]==2.12.5
+email-validator==2.3.0
+
+# Testing
+pytest==9.0.2
+httpx==0.28.1
+
+# Additional dependencies
+typing-extensions==4.15.0
+python-multipart==0.0.20
+
+# Firebase Admin SDK
+firebase-admin==6.8.0
+
+# Environment variables
+python-dotenv==1.0.1

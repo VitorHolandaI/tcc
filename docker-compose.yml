@@ -1,0 +1,344 @@
+# ═══════════════════════════════════════════════════════════════
+# Docker Compose - Test Maker Platform
+# ═══════════════════════════════════════════════════════════════
+#
+# Services:
+# - main-api: Main FastAPI server (port 8000)
+# - recording-service: Screen recording service (port 8001)
+# - analysis-service: Video gaze analysis service (port 8002)
+# - webcam-service: Webcam capture service (port 8003)
+# - audio-service: Audio capture and analysis service (port 8004)
+# - keystroke-service: Keystroke dynamics analysis service (port 8005)
+# - similarity-service: Code similarity analysis service (port 8006)
+# - frontend: React + Vite app (port 3000)
+#
+# Usage:
+#   docker-compose up --build      # Build and start
+#   docker-compose down            # Stop and remove containers
+#   docker-compose logs -f         # Follow logs
+#
+# Required .env variables (root .env):
+#   FIREBASE_PROJECT_ID
+#   FIREBASE_SERVICE_ACCOUNT_PATH   (path to JSON, relative to ./back/)
+#   HUGGINGFACE_TOKEN
+# ═══════════════════════════════════════════════════════════════
+
+services:
+  # ─────────────────────────────────────────────────────────────
+  # PostgreSQL Database (porta 5432)
+  # ─────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: testmaker-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=testmaker
+      - POSTGRES_USER=testmaker
+      - POSTGRES_PASSWORD=testmaker123
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U testmaker -d testmaker"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+  # ─────────────────────────────────────────────────────────────
+  # Main API (porta 8000)
+  # ─────────────────────────────────────────────────────────────
+  main-api:
+    build:
+      context: ./back
+      target: main-api
+    container_name: testmaker-main-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://testmaker:testmaker123@postgres:5432/testmaker
+      - RECORDING_SERVICE_URL=http://recording-service:8001
+      - ANALYSIS_SERVICE_URL=http://analysis-service:8002
+      - RECORDINGS_DIR=/app/recordings
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_SERVICE_ACCOUNT_PATH=/app/serviceaccount.json
+    volumes:
+      - ./back/data:/app/data
+      - ./back/recordings:/app/recordings
+      - ./back/logs:/app/logs
+      - ./back/corretor-9dcf3-firebase-adminsdk-fbsvc-3c2575a3b8.json:/app/serviceaccount.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      recording-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+  # ─────────────────────────────────────────────────────────────
+  # Recording Service (porta 8001)
+  # ─────────────────────────────────────────────────────────────
+  recording-service:
+    build:
+      context: ./back
+      target: recording-service
+    container_name: testmaker-recording
+    ports:
+      - "8001:8001"
+    environment:
+      - RECORDING_SERVICE_HOST=0.0.0.0
+      - RECORDING_SERVICE_PORT=8001
+      - MAIN_API_URL=http://main-api:8000
+      - RECORDINGS_DIR=/app/recordings
+      - SEGMENTS_DIR=/app/recordings/segments
+      - MAX_CONCURRENT_RECORDINGS=150
+      - DATABASE_URL=postgresql://testmaker:testmaker123@postgres:5432/testmaker
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_SERVICE_ACCOUNT_PATH=/app/serviceaccount.json
+    volumes:
+      - ./back/recordings:/app/recordings
+      - ./back/data:/app/data
+      - ./back/logs:/app/logs
+      - ./back/corretor-9dcf3-firebase-adminsdk-fbsvc-3c2575a3b8.json:/app/serviceaccount.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+  # ─────────────────────────────────────────────────────────────
+  # Analysis Service (porta 8002)
+  # ─────────────────────────────────────────────────────────────
+  analysis-service:
+    build:
+      context: ./back/analysis-service
+    container_name: testmaker-analysis
+    ports:
+      - "8002:8002"
+    environment:
+      - ANALYSIS_SERVICE_HOST=0.0.0.0
+      - ANALYSIS_SERVICE_PORT=8002
+      - DATABASE_URL=postgresql://testmaker:testmaker123@postgres:5432/testmaker
+      - WEBCAM_RECORDINGS_DIR=/app/webcam_recordings
+      - MAX_CONCURRENT_ANALYSIS=10
+      - PROCESS_EVERY_N_FRAMES=5
+      - USE_GPU=false
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_SERVICE_ACCOUNT=/app/serviceaccount.json
+    volumes:
+      - ./back/webcam_recordings:/app/webcam_recordings
+      - ./back/data:/app/data
+      - ./back/logs:/app/logs
+      - ./back/corretor-9dcf3-firebase-adminsdk-fbsvc-3c2575a3b8.json:/app/serviceaccount.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+  # ─────────────────────────────────────────────────────────────
+  # Webcam Service (porta 8003)
+  # ─────────────────────────────────────────────────────────────
+  webcam-service:
+    build:
+      context: ./back
+      dockerfile: webcam-service/Dockerfile
+    container_name: testmaker-webcam
+    ports:
+      - "8003:8003"
+    environment:
+      - WEBCAM_DIR=/app/webcam_recordings
+      - DATABASE_URL=postgresql://testmaker:testmaker123@postgres:5432/testmaker
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_SERVICE_ACCOUNT=/app/serviceaccount.json
+      - FIREBASE_SERVICE_ACCOUNT_PATH=/app/serviceaccount.json
+    volumes:
+      - ./back/webcam_recordings:/app/webcam_recordings
+      - ./back/logs:/app/logs
+      - ./back/corretor-9dcf3-firebase-adminsdk-fbsvc-3c2575a3b8.json:/app/serviceaccount.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+  # ─────────────────────────────────────────────────────────────
+  # Audio Service (porta 8004)
+  # ─────────────────────────────────────────────────────────────
+  audio-service:
+    build:
+      context: ./back
+      dockerfile: audio-service/Dockerfile
+    container_name: testmaker-audio
+    ports:
+      - "8004:8004"
+    environment:
+      - AUDIO_SERVICE_HOST=0.0.0.0
+      - AUDIO_SERVICE_PORT=8004
+      - DATABASE_URL=postgresql://testmaker:testmaker123@postgres:5432/testmaker
+      - AUDIO_DIR=/app/audio_recordings
+      - HUGGINGFACE_TOKEN=${HUGGINGFACE_TOKEN}
+      - USE_GPU=false
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_SERVICE_ACCOUNT=/app/serviceaccount.json
+    volumes:
+      - ./back/audio_recordings:/app/audio_recordings
+      - ./back/data:/app/data
+      - ./back/logs:/app/logs
+      - ./back/corretor-9dcf3-firebase-adminsdk-fbsvc-3c2575a3b8.json:/app/serviceaccount.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+  # ─────────────────────────────────────────────────────────────
+  # Keystroke Service (porta 8005)
+  # ─────────────────────────────────────────────────────────────
+  keystroke-service:
+    build:
+      context: ./back
+      dockerfile: keystroke-service/Dockerfile
+    container_name: testmaker-keystroke
+    ports:
+      - "8005:8005"
+    environment:
+      - KEYSTROKE_SERVICE_HOST=0.0.0.0
+      - KEYSTROKE_SERVICE_PORT=8005
+      - DATABASE_URL=postgresql://testmaker:testmaker123@postgres:5432/testmaker
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_SERVICE_ACCOUNT=/app/serviceaccount.json
+      - MAX_CONCURRENT_KEYSTROKE_ANALYSIS=5
+      - MIN_EVENTS_THRESHOLD=10
+    volumes:
+      - ./back/data:/app/data
+      - ./back/logs:/app/logs
+      - ./back/corretor-9dcf3-firebase-adminsdk-fbsvc-3c2575a3b8.json:/app/serviceaccount.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8005/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+  # ─────────────────────────────────────────────────────────────
+  # Similarity Service (porta 8006)
+  # ─────────────────────────────────────────────────────────────
+  similarity-service:
+    build:
+      context: ./back
+      dockerfile: similarity-service/Dockerfile
+    container_name: testmaker-similarity
+    ports:
+      - "8006:8006"
+    environment:
+      - SIMILARITY_SERVICE_HOST=0.0.0.0
+      - SIMILARITY_SERVICE_PORT=8006
+      - DATABASE_URL=postgresql://testmaker:testmaker123@postgres:5432/testmaker
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_SERVICE_ACCOUNT=/app/serviceaccount.json
+      - MAX_CONCURRENT_SIMILARITY_ANALYSIS=5
+      - SIMILARITY_THRESHOLD=70.0
+    volumes:
+      - ./back/data:/app/data
+      - ./back/logs:/app/logs
+      - ./back/corretor-9dcf3-firebase-adminsdk-fbsvc-3c2575a3b8.json:/app/serviceaccount.json:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8006/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+  # ─────────────────────────────────────────────────────────────
+  # Frontend (porta 3000)
+  # ─────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./front
+    container_name: testmaker-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      main-api:
+        condition: service_healthy
+      recording-service:
+        condition: service_healthy
+      analysis-service:
+        condition: service_healthy
+      webcam-service:
+        condition: service_healthy
+      audio-service:
+        condition: service_healthy
+      keystroke-service:
+        condition: service_healthy
+      similarity-service:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+# ═══════════════════════════════════════════════════════════════
+# Volumes (persistência de dados)
+# ═══════════════════════════════════════════════════════════════
+volumes:
+  postgres-data:
+    driver: local
+
+# ═══════════════════════════════════════════════════════════════
+# Networks
+# ═══════════════════════════════════════════════════════════════
+networks:
+  testmaker-network:
+    driver: bridge

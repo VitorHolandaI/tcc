@@ -1,0 +1,412 @@
+/* ===== Similarity Analysis Page ===== */
+
+.sim-loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+.sim-spinner {
+    animation: spin 1s linear infinite;
+    color: #6366f1;
+}
+
+.sim-container {
+    min-height: 100vh;
+    background: #f8fafc;
+}
+
+/* Header */
+.sim-header {
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sim-header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sim-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6366f1;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+
+.sim-nav-link:hover {
+    color: #4f46e5;
+}
+
+.sim-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.sim-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.sim-subtitle {
+    color: #64748b;
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+}
+
+.sim-stats-group {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.sim-stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    min-width: 80px;
+}
+
+.sim-stat-card.blue {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+
+.sim-stat-card.green {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+.sim-stat-card.red {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.sim-stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.sim-stat-label {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* Main Content */
+.sim-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+}
+
+/* Action Bar */
+.sim-action-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.sim-btn-analyze {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.sim-btn-analyze:hover:not(:disabled) {
+    background: #4f46e5;
+}
+
+.sim-btn-analyze:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.sim-threshold-info {
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+/* Status Messages */
+.sim-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.sim-status.processing {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+}
+
+.sim-status.error {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+/* Empty State */
+.sim-empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #64748b;
+}
+
+.sim-empty-state h3 {
+    margin: 1rem 0 0.5rem;
+    color: #334155;
+}
+
+.sim-empty-state p {
+    margin: 0;
+}
+
+/* Results */
+.sim-results {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Question Card */
+.sim-question-card {
+    background: white;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sim-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.sim-question-header:hover {
+    background: #f8fafc;
+}
+
+.sim-question-info h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.sim-question-meta {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.sim-question-badge-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sim-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.sim-badge.danger {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.sim-badge.success {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.sim-expand-icon {
+    color: #94a3b8;
+    font-size: 0.75rem;
+}
+
+/* Pairs Table */
+.sim-pairs-table {
+    border-top: 1px solid #e2e8f0;
+    overflow-x: auto;
+}
+
+.sim-pairs-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sim-pairs-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.sim-pairs-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.9rem;
+}
+
+.sim-pairs-table tr:last-child td {
+    border-bottom: none;
+}
+
+.sim-pairs-table tr.flagged-row {
+    background: #fef2f2;
+}
+
+.sim-pairs-table tr.flagged-row:hover {
+    background: #fee2e2;
+}
+
+.sim-pairs-table tr:not(.flagged-row):hover {
+    background: #f8fafc;
+}
+
+/* Aluno Cell */
+.sim-aluno-cell {
+    display: flex;
+    flex-direction: column;
+}
+
+.sim-aluno-name {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.sim-aluno-email {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+/* Percentage */
+.sim-percentage {
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.85rem;
+}
+
+.sim-percentage.low {
+    color: #16a34a;
+    background: #f0fdf4;
+}
+
+.sim-percentage.medium {
+    color: #ca8a04;
+    background: #fefce8;
+}
+
+.sim-percentage.high {
+    color: #dc2626;
+    background: #fef2f2;
+}
+
+/* Status Badge */
+.sim-status-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.sim-status-badge.ok {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.sim-status-badge.danger {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+/* No Pairs */
+.sim-no-pairs {
+    padding: 2rem;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+/* Spinning animation */
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sim-header {
+        padding: 1rem;
+    }
+
+    .sim-main {
+        padding: 1rem;
+    }
+
+    .sim-title-row {
+        flex-direction: column;
+    }
+
+    .sim-pairs-table {
+        font-size: 0.85rem;
+    }
+
+    .sim-pairs-table th,
+    .sim-pairs-table td {
+        padding: 0.5rem;
+    }
+}

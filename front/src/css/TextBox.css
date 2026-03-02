@@ -1,0 +1,423 @@
+/* TextBox.css — Updated for Monaco Editor + Submit button */
+
+/* --- Container Principal (Tela Cheia) --- */
+.tb-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* --- Header --- */
+.tb-header {
+  height: 64px;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.tb-header-title h1 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.tb-header-meta {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+.tb-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Status de Salvamento */
+.tb-save-status {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  min-width: 100px;
+  justify-content: flex-end;
+}
+
+.tb-btn-finish {
+  background-color: #7c3aed;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+}
+
+.tb-btn-finish:hover {
+  background-color: #6d28d9;
+}
+
+/* --- Área Principal (Split View) --- */
+.tb-main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* --- LADO ESQUERDO: Editor (60%) --- */
+.tb-left-panel {
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-right: 1px solid #cbd5e1;
+  background-color: #fff;
+  min-width: 0;
+}
+
+.tb-editor-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 0; /* Necessário para flex children com Monaco */
+}
+
+/* Monaco preenche todo o espaço disponível */
+.tb-editor-wrapper .monaco-editor,
+.tb-editor-wrapper section {
+  flex: 1;
+  min-height: 0;
+}
+
+.tb-editor-toolbar {
+  padding: 0.75rem;
+  background: white;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Botão Executar (verde) */
+.tb-btn-run {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+  font-size: 0.875rem;
+}
+
+.tb-btn-run:hover:not(:disabled) {
+  background-color: #15803d;
+}
+
+.tb-btn-run:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Botão Submeter (azul) */
+.tb-btn-submit {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+  font-size: 0.875rem;
+}
+
+.tb-btn-submit:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.tb-btn-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Console */
+.tb-console {
+  margin-top: 1rem;
+  height: 160px;
+  background-color: #1e293b;
+  color: #f1f5f9;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.tb-console-title {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.tb-console-content {
+  white-space: pre-wrap;
+  flex: 1;
+}
+
+/* --- LADO DIREITO: Questão (40%) --- */
+.tb-right-panel {
+  flex: 4;
+  padding: 1.5rem;
+  background-color: #f1f5f9;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.tb-question-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  margin-bottom: 1.5rem;
+}
+
+.tb-question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.tb-question-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.tb-points-badge {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 0.25rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tb-question-desc {
+  color: #334155;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  margin-bottom: 1.5rem;
+}
+
+/* Exemplos */
+.tb-example-box {
+  background-color: #f8fafc;
+  border-left: 4px solid #3b82f6;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.tb-example-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.tb-code-block {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+/* Navegação Inferior */
+.tb-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: auto;
+}
+
+.tb-btn-nav {
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #64748b;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.tb-btn-nav:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.tb-btn-nav:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #f1f5f9;
+}
+
+/* Loading & Error Center */
+.tb-center-screen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  flex-direction: column;
+}
+
+/* Recording Badge */
+.recording-badge {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: 12px;
+  animation: pulse-recording 2s infinite;
+}
+
+@keyframes pulse-recording {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Exit Monitoring Badge */
+.exit-badge {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: 12px;
+}
+
+.exit-badge.danger {
+  background: #fee2e2;
+  color: #991b1b;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Exit Warning Modal */
+.exit-warning-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.exit-warning-modal .modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.exit-warning-modal h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exit-warning-modal p {
+  margin: 0 0 1.5rem 0;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.exit-warning-modal button {
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.exit-warning-modal button:hover {
+  background: #6d28d9;
+}

@@ -1,0 +1,81 @@
+/* Style for the main container */
+.textbox-container {
+  padding: 20px;
+  max-width: 800px; /* CHANGE THIS (e.g., from 600px to 800px) */
+  margin: 0;
+}
+
+/* Style for the textarea */
+.text-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box; /* Ensures padding is included in the width */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical; /* Allows users to resize the height */
+  height: 900px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff; /* Primary blue color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.submit-button:disabled {
+  background-color: #6c757d; /* Gray when disabled/loading */
+  cursor: not-allowed;
+}
+/* Style for the Clear Text button */
+.clear-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.clear-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
+/* Style for the text preview area */
+.text-preview {
+  white-space: pre-wrap;
+  border: 1px solid #ddd;
+  padding: 15px;
+  min-height: 50px;
+  background-color: #f9f9f9;
+}
+
+h1 {
+
+margin-top: 0px;
+  margin-bottom: 10px;
+  }
+
+
+  /* Add this to your TextBox.css */
+.textbox-container {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

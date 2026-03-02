@@ -1,0 +1,87 @@
+/* Página como um retângulo inteiro */
+.page-center {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #3b88ff, #000a8a);
+    padding: 16px;
+}
+
+/* Caixa central */
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 32px 28px;
+    text-align: center;
+
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Introdução */
+.login-intro h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.login-intro p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4b5563;
+    margin-bottom: 24px;
+}
+
+/* Botão */
+.login-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+
+    background-color: #ffffff;
+    color: #374151;
+    font-size: 16px;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: #f9fafb;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Ícone */
+.google-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Loading */
+.spinner {
+    width: 36px;
+    height: 36px;
+    margin: auto;
+    border: 3px solid #e5e7eb;
+    border-top: 3px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

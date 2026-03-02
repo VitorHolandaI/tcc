@@ -1,0 +1,301 @@
+/* SubmissoesProva.css */
+
+/* --- Layout Principal --- */
+.sp-container {
+  min-height: 100vh;
+  background-color: #eff6ff; /* Fundo azul claro padrão */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #1e293b;
+}
+
+.sp-main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* --- Loading & Error --- */
+.sp-loading-container,
+.sp-error-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eff6ff;
+}
+
+.sp-spinner {
+  color: #2563eb;
+  animation: spin 1s linear infinite;
+}
+
+.sp-error-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  max-width: 400px;
+}
+
+.sp-btn-back-error {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.sp-btn-back-error:hover {
+  background-color: #1d4ed8;
+}
+
+/* --- Header --- */
+.sp-header {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.sp-header-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.sp-nav-link {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s;
+  padding: 0;
+}
+
+.sp-nav-link:hover {
+  color: #1e293b;
+  text-decoration: underline;
+}
+
+.sp-header-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.sp-header-meta {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0.25rem 0 0;
+}
+
+/* --- Introdução da Página --- */
+.sp-page-intro {
+  margin-bottom: 2rem;
+}
+
+.sp-page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.5rem 0;
+}
+
+.sp-page-desc {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* --- Grid e Cards --- */
+.sp-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .sp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sp-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sp-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.sp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Header (Avatar + Info) */
+.sp-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.sp-avatar {
+  width: 48px;
+  height: 48px;
+  background-color: #eff6ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.sp-student-info h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.sp-student-email {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.sp-student-mat {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Progress Section */
+.sp-progress-section {
+  margin-bottom: 1.5rem;
+}
+
+.sp-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.sp-progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.sp-progress-bar {
+  height: 100%;
+  background-color: #2563eb;
+  border-radius: 999px;
+  transition: width 0.5s ease-out;
+}
+
+/* Grade Badge */
+.sp-grade-badge {
+  background-color: #f0fdf4;
+  border: 1px solid #dcfce7;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sp-grade-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #166534;
+}
+
+.sp-grade-value {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #15803d;
+}
+
+/* Action Button */
+.sp-btn-view {
+  margin-top: auto; /* Empurra o botão para o fundo do card */
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+}
+
+.sp-btn-view:hover {
+  background-color: #1d4ed8;
+}
+
+/* Empty State */
+.sp-empty-state {
+  background: white;
+  border-radius: 16px;
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.sp-empty-icon {
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+}
+
+.sp-empty-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.sp-empty-desc {
+  color: #64748b;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

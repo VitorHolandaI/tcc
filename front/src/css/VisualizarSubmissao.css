@@ -1,0 +1,955 @@
+/* VisualizarSubmissao.css */
+
+/* --- Layout & Base --- */
+.vs-container {
+  min-height: 100vh;
+  background-color: #eff6ff; /* Azul muito claro */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #1e293b;
+}
+
+.vs-main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* --- Loading & Error States --- */
+.vs-loading-container,
+.vs-error-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eff6ff;
+}
+
+.vs-spinner {
+  color: #2563eb; /* Azul primário */
+  animation: spin 1s linear infinite;
+}
+
+.vs-error-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  max-width: 400px;
+}
+
+.vs-error-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 1rem 0 0.5rem;
+}
+
+.vs-btn-back {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-weight: 500;
+}
+
+.vs-btn-back:hover {
+  background-color: #1d4ed8;
+}
+
+/* --- Header --- */
+.vs-header {
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.vs-header-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.vs-nav-link {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  font-size: 0.875rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: color 0.2s;
+}
+
+.vs-nav-link:hover {
+  color: #1e293b;
+}
+
+.vs-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.vs-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.vs-subtitle {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.vs-stats-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.vs-stat-card {
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 80px;
+}
+
+.vs-stat-card.blue {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.vs-stat-card.green {
+  background-color: #f0fdf4;
+  color: #16a34a;
+}
+
+.vs-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+
+.vs-stat-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* --- Student Card --- */
+.vs-student-card {
+  background: white;
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #2563eb;
+}
+
+.vs-avatar {
+  width: 48px;
+  height: 48px;
+  background-color: #eff6ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+}
+
+.vs-student-name {
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.vs-student-detail {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* --- Split Layout (Question & Code) --- */
+.vs-split-view {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .vs-split-view {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.vs-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+}
+
+.vs-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #0f172a;
+}
+
+.vs-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+.vs-description {
+  white-space: pre-wrap;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.vs-example-box {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 0 8px 8px 0;
+  border-left: 4px solid #cbd5e1;
+}
+
+.vs-example-box.primary {
+  background-color: #eff6ff;
+  border-left-color: #3b82f6;
+}
+
+.vs-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+}
+
+.vs-code-snippet {
+  font-family: monospace;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+.vs-weight {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+/* --- Code Submission Area --- */
+.vs-code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.vs-grade-badge {
+  background-color: #dcfce7;
+  color: #15803d;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.vs-full-code {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.vs-full-code code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.875rem;
+}
+
+.vs-execution-result {
+  margin-top: 1rem;
+}
+
+.vs-console-output {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.vs-timestamp {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 1rem;
+  text-align: right;
+}
+
+.vs-empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #94a3b8;
+}
+
+/* --- Navigation & Controls --- */
+.vs-controls-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.vs-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.vs-btn-nav {
+  background-color: #e2e8f0;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #475569;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.vs-btn-nav:hover:not(:disabled) {
+  background-color: #cbd5e1;
+}
+
+.vs-btn-nav.primary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.vs-btn-nav.primary:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.vs-btn-nav:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.vs-question-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.vs-q-btn {
+  border: 1px solid #e2e8f0;
+  background: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.vs-q-btn:hover {
+  border-color: #cbd5e1;
+  background-color: #f8fafc;
+}
+
+.vs-q-btn.active {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.vs-q-btn.answered {
+  background-color: #f0fdf4;
+  color: #16a34a;
+  border-color: #bbf7d0;
+}
+
+.vs-q-btn.answered.active {
+  background-color: #16a34a;
+  color: white;
+  border-color: #16a34a;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --- Behavioral Analysis Section --- */
+.behavioral-analysis-section {
+  margin-top: 40px;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.behavioral-analysis-section h2 {
+  margin-bottom: 24px;
+  color: #0f172a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 12px;
+}
+
+.analysis-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.analysis-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.analysis-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.analysis-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.analysis-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.analysis-btn.gaze {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.analysis-btn.gaze:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5a67d8 0%, #6a4190 100%);
+}
+
+.analysis-btn.audio {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.analysis-btn.audio:hover:not(:disabled) {
+  background: linear-gradient(135deg, #e081e8 0%, #e3475a 100%);
+}
+
+.analysis-btn.keystroke {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.analysis-btn.keystroke:hover:not(:disabled) {
+  background: linear-gradient(135deg, #3d9ae5 0%, #00d8e5 100%);
+}
+
+.analysis-btn.video {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.analysis-btn.video:hover:not(:disabled) {
+  background: linear-gradient(135deg, #3ad069 0%, #2ee0c4 100%);
+}
+
+.analysis-btn.similarity {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.analysis-btn.similarity:hover:not(:disabled) {
+  background: linear-gradient(135deg, #d77de5 0%, #e04458 100%);
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+/* --- Analysis Results --- */
+.analysis-results {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+}
+
+.analysis-results.gaze {
+  border-left-color: #667eea;
+  background: linear-gradient(to right, #f8f9ff 0%, #f8fafc 100%);
+}
+
+.analysis-results.audio {
+  border-left-color: #f5576c;
+  background: linear-gradient(to right, #fff8f9 0%, #f8fafc 100%);
+}
+
+.analysis-results.keystroke {
+  border-left-color: #4facfe;
+  background: linear-gradient(to right, #f0fbff 0%, #f8fafc 100%);
+}
+
+.analysis-results h3 {
+  margin-bottom: 16px;
+  color: #1e293b;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.result-label {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.result-value {
+  font-size: 1.25rem;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* --- Analysis Status --- */
+.analysis-status {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #eff6ff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2563eb;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.analysis-status.processing {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+/* --- Video Modal --- */
+.video-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.video-modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1200px;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.video-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.video-modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.video-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #64748b;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.video-modal-close:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.video-modal-body {
+  padding: 24px;
+  background: #0f172a;
+}
+
+.video-player {
+  width: 100%;
+  max-height: calc(90vh - 120px);
+  border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .analysis-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .video-modal-content {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .video-player {
+    max-height: calc(100vh - 120px);
+  }
+}
+/* --- Barra de Ferramentas de Análise --- */
+.vs-analysis-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.vs-analysis-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+}
+
+.vs-analysis-toolbar {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/* Container do Dropdown */
+.vs-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Botão Principal do Dropdown e Botões Simples */
+.vs-btn-tool {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    color: #475569;
+    cursor: pointer;
+}
+
+.vs-btn-tool:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+.vs-btn-tool.video-btn {
+    background-color: #eff6ff;
+    color: #2563eb;
+    border-color: #bfdbfe;
+}
+.vs-btn-tool.video-btn:hover {
+    background-color: #dbeafe;
+}
+
+.vs-btn-tool.sim-btn {
+    background-color: #f0fdf4;
+    color: #16a34a;
+    border-color: #bbf7d0;
+}
+.vs-btn-tool.sim-btn:hover {
+    background-color: #dcfce7;
+}
+
+/* Menu Dropdown Flutuante */
+.vs-dropdown-menu {
+    position: absolute;
+    bottom: 110%; /* Abre para cima se estiver no final, ou use top: 110% para baixo */
+    left: 0;
+    width: 200px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 50;
+    overflow: hidden;
+    animation: fadeIn 0.15s ease-out;
+}
+
+.vs-dropdown-item {
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: #475569;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.15s;
+}
+
+.vs-dropdown-item:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
+.vs-dropdown-item.generate {
+    color: #2563eb;
+    font-weight: 500;
+}
+
+.vs-dropdown-item:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Classes utilitárias para ícones girando */
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- Modal de Vídeo --- */
+
+/* Fundo escuro que cobre a tela toda */
+.video-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo bem escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que fique acima de tudo */
+    backdrop-filter: blur(4px); /* Efeito moderno de desfoque no fundo */
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* A caixa branca que contém o vídeo */
+.video-modal-content {
+    background: white;
+    padding: 1rem;
+    border-radius: 12px;
+    position: relative;
+    width: 95%;
+    max-width: 1200px; /* Limite de largura para telas grandes */
+    max-height: 95vh;  /* Limite de altura */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Título dentro do modal */
+.video-modal-content h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    color: #1e293b;
+    padding-right: 2rem; /* Espaço para o botão de fechar não sobrepor o texto */
+}
+
+/* O Player de Vídeo em si - AQUI ESTÁ A CORREÇÃO DA DISTORÇÃO */
+.full-video-player {
+    width: 100%;
+    height: auto;
+    max-height: 80vh; /* Garante que o vídeo não fique maior que a tela verticalmente */
+    border-radius: 8px;
+    background-color: #000; /* Fundo preto caso o vídeo tenha barras */
+    outline: none;
+    
+    /* Esta propriedade é a mágica que evita distorção: */
+    object-fit: contain; 
+}
+
+/* Botão de fechar (X) */
+.video-modal-content .close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-modal-content .close-modal:hover {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+/* Estado de carregamento dentro do modal */
+.loading-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    color: #64748b;
+    gap: 1rem;
+}
+
+/* --- Analysis Error Card --- */
+.vs-analysis-error-card {
+    background-color: #fff1f2; /* Vermelho bem claro */
+    border: 1px solid #ffdde0;
+    border-left: 4px solid #ef4444; /* Vermelho */
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.vs-error-icon-area {
+    color: #ef4444;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.vs-error-content-area {
+    flex-grow: 1;
+}
+
+.vs-error-content-area strong {
+    color: #c81e1e;
+    font-weight: 600;
+}
+
+.vs-error-content-area p {
+    margin: 0;
+    color: #dc2626;
+    font-size: 0.875rem;
+}
+
+.vs-close-error-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #f87171;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    transition: color 0.2s;
+}
+
+.vs-close-error-btn:hover {
+    color: #dc2626;
+}
+
+/* --- Dropdown styles standardized (no keystroke-specific overrides needed) --- */

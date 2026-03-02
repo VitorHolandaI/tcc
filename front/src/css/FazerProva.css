@@ -1,0 +1,258 @@
+/* /home/vitor/git/tcc/front/src/css/FazerProva.css */
+:root {
+    --primary-color: #2563eb;
+    --bg-dark: #0f172a; /* Slate 900 for editor bg */
+    --bg-panel: #ffffff;
+    --border-color: #e2e8f0;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --success-color: #22c55e;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background-color: #f1f5f9;
+}
+
+.exam-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Top Bar */
+.exam-header {
+    height: 60px;
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    flex-shrink: 0;
+}
+
+.exam-info h2 {
+    font-size: 1.125rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.exam-timer {
+    font-family: monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: #f8fafc;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--border-color);
+}
+
+.btn-finish {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.btn-finish:hover {
+    background-color: #1d4ed8;
+}
+
+/* Main Workspace */
+.workspace {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Left Panel: Question */
+.question-panel {
+    width: 40%;
+    background: white;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.question-content {
+    padding: 2rem;
+    flex: 1;
+}
+
+.question-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: var(--text-primary);
+}
+
+.question-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 2rem;
+}
+
+.examples-box {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.example-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.code-block {
+    font-family: 'Fira Code', monospace;
+    background: #e2e8f0;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    color: #0f172a;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Navigation Footer (Left Panel) */
+.question-nav {
+    padding: 1rem 2rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    background: white;
+}
+
+.btn-nav {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.btn-nav:hover:not(:disabled) {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-nav:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Right Panel: Editor */
+.editor-panel {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    background: #1e1e1e; /* Dark theme base */
+}
+
+.editor-toolbar {
+    height: 40px;
+    background: #2d2d2d;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    border-bottom: 1px solid #404040;
+}
+
+.lang-badge {
+    color: #9cdcfe;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.code-editor-container {
+    flex: 1;
+    position: relative;
+}
+
+/* Simulating editor area if not using a library like Monaco */
+.code-textarea {
+    width: 100%;
+    height: 100%;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border: none;
+    padding: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Console/Output Area */
+.output-panel {
+    height: 30%;
+    background: #0f172a;
+    border-top: 1px solid #334155;
+    display: flex;
+    flex-direction: column;
+}
+
+.output-header {
+    padding: 0.5rem 1rem;
+    background: #1e293b;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-run {
+    background: var(--success-color);
+    color: white;
+    border: none;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.btn-run:hover {
+    background: #16a34a;
+}
+
+.output-content {
+    flex: 1;
+    padding: 1rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.875rem;
+    color: #e2e8f0;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+.output-content.error {
+    color: #ef4444;
+}

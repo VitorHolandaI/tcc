@@ -1,0 +1,59 @@
+# ═══════════════════════════════════════════════════════════════
+# Docker Compose - PostgreSQL Database Only
+# ═══════════════════════════════════════════════════════════════
+#
+# This file runs ONLY the PostgreSQL database in a container.
+# Use this for local development where services run natively but
+# share a containerized PostgreSQL database.
+#
+# Usage:
+#   docker-compose -f docker-compose.db.yml up -d      # Start database
+#   docker-compose -f docker-compose.db.yml down       # Stop database
+#   docker-compose -f docker-compose.db.yml down -v    # Stop and remove volumes
+#
+# Connection String:
+#   postgresql://testmaker:testmaker123@localhost:5432/testmaker
+#
+# ═══════════════════════════════════════════════════════════════
+
+version: '3.8'
+
+services:
+  # ─────────────────────────────────────────────────────────────
+  # PostgreSQL Database (porta 5432)
+  # ─────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: testmaker-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=testmaker
+      - POSTGRES_USER=testmaker
+      - POSTGRES_PASSWORD=testmaker123
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U testmaker -d testmaker"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - testmaker-network
+
+# ═══════════════════════════════════════════════════════════════
+# Volumes (persistência de dados)
+# ═══════════════════════════════════════════════════════════════
+volumes:
+  postgres-data:
+    driver: local
+
+# ═══════════════════════════════════════════════════════════════
+# Networks
+# ═══════════════════════════════════════════════════════════════
+networks:
+  testmaker-network:
+    driver: bridge

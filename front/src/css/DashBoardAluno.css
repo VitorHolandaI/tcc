@@ -1,0 +1,205 @@
+/* DashboardAluno.css */
+
+:root {
+  --primary-blue: #2563eb;
+  --primary-blue-dark: #1d4ed8;
+  --secondary-blue: #dbeafe;
+  --bg-gradient-start: #f0f7ff;
+  --bg-gradient-end: #e0e7ff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --white: #ffffff;
+  --success: #16a34a;
+  --success-bg: #dcfce7;
+  --gray-light: #f3f4f6;
+  --gray-border: #e5e7eb;
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+  --radius-card: 16px;
+  --radius-btn: 8px;
+}
+
+/* Layout Base (Igual ao Professor) */
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text-main);
+}
+
+.dashboard-header {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand h1 { font-size: 1.5rem; font-weight: 700; color: var(--primary-blue); margin: 0; }
+.brand p { font-size: 0.875rem; color: var(--text-muted); margin: 0; }
+
+.user-controls { display: flex; align-items: center; gap: 1.5rem; }
+.user-info { text-align: right; }
+.user-name { font-weight: 600; font-size: 0.9rem; display: block; }
+.user-email { font-size: 0.75rem; color: var(--text-muted); }
+
+.btn-logout {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: #dc2626; background: transparent; border: none;
+  cursor: pointer; padding: 0.5rem; border-radius: var(--radius-btn);
+  transition: background 0.2s;
+}
+.btn-logout:hover { background-color: #fef2f2; }
+
+/* Conteúdo Principal */
+.main-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.welcome-section { margin-bottom: 2rem; }
+.welcome-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+/* --- ABAS (TABS) --- */
+.tabs-container {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 1px solid var(--gray-border);
+  margin-bottom: 2rem;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 1rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover { color: var(--primary-blue); }
+
+.tab-btn.active {
+  color: var(--primary-blue);
+  border-bottom-color: var(--primary-blue);
+  font-weight: 600;
+}
+
+/* Grids e Cards */
+.provas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+}
+
+.prova-card {
+  background: var(--white);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  border: 1px solid var(--gray-border);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.prova-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.card-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main); }
+.card-desc { font-size: 0.875rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Ícones de Status no topo do card */
+.status-icon-box {
+  padding: 0.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.status-icon-box.green { background-color: var(--success-bg); color: var(--success); }
+.status-icon-box.blue { background-color: var(--secondary-blue); color: var(--primary-blue); }
+.status-icon-box.gray { background-color: var(--gray-light); color: var(--text-muted); }
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+.meta-item { display: flex; align-items: center; gap: 0.25rem; }
+.lang-tag { background-color: var(--gray-light); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 500; font-size: 0.75rem; }
+
+/* Barra de Progresso */
+.progress-section { margin-bottom: 1.5rem; }
+.progress-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.progress-track { width: 100%; height: 8px; background-color: var(--gray-light); border-radius: 99px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 99px; transition: width 0.5s ease; }
+.progress-fill.green { background-color: var(--success); }
+.progress-fill.gray { background-color: #9ca3af; }
+
+/* Botões de Ação */
+.btn-action {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--radius-btn);
+  border: none;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: white;
+  margin-top: auto;
+}
+
+.btn-action.start { background-color: var(--success); }
+.btn-action.start:hover { background-color: #15803d; }
+
+.btn-action.schedule { background-color: var(--primary-blue); }
+.btn-action.schedule:hover { background-color: var(--primary-blue-dark); }
+
+.btn-action.closed { background-color: #4b5563; }
+.btn-action.closed:hover { background-color: #374151; }
+
+/* Empty States */
+.empty-state {
+  grid-column: 1 / -1;
+  background: var(--white);
+  border-radius: var(--radius-card);
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+.empty-icon { color: #d1d5db; margin-bottom: 1rem; }
+.empty-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+.empty-desc { color: var(--text-muted); }
+
+/* Loading */
+.loading-wrapper { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); }
