@@ -60,7 +60,6 @@ docker-compose up --build
 ./run-all-services.sh --logs    # Ver logs
 ```
 
-Para setup completo (instalacao de dependencias, ambientes virtuais, banco de dados), consulte [FRESH_INSTALL.md](FRESH_INSTALL.md).
 
 ---
 
