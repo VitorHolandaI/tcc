@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@codemirror/theme-one-dark": "^6.1.3",
-    "codemirror": "^6.0.2"
-  }
-}
