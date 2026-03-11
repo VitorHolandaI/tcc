@@ -1,0 +1,48 @@
+escola_api/
+├── .env                         # Variáveis de ambiente (senha do banco, etc.)
+├── .gitignore                   # Arquivos ignorados pelo Git
+├── requirements.txt             # Lista de bibliotecas (fastapi, uvicorn, sqlalchemy...)
+├── run.py                       # Script opcional para rodar o servidor
+│
+├── app/                         # O Pacote Principal
+│   ├── __init__.py              # Transforma a pasta 'app' em pacote Python
+│   ├── main.py                  # Ponto de entrada (onde fica o app = FastAPI)
+│   │
+│   ├── core/                    # Configurações do sistema
+│   │   ├── __init__.py
+│   │   ├── configs.py           # Settings gerais
+│   │   └── database.py          # Conexão com Banco de Dados
+│   │
+│   ├── models/                  # (MODEL) Tabelas do Banco (SQLAlchemy)
+│   │   ├── __init__.py
+│   │   ├── aluno_model.py
+│   │   ├── professor_model.py
+│   │   ├── prova_model.py
+│   │   └── avaliacao_model.py
+│   │
+│   ├── schemas/                 # (VIEW/DTO) Contratos de dados (Pydantic)
+│   │   ├── __init__.py
+│   │   ├── aluno_schema.py
+│   │   ├── professor_schema.py
+│   │   ├── prova_schema.py
+│   │   └── avaliacao_schema.py
+│   │
+│   ├── repositories/            # (DATA ACCESS) Lógica de Banco (CRUD)
+│   │   ├── __init__.py
+│   │   ├── aluno_repository.py
+│   │   ├── professor_repository.py
+│   │   ├── prova_repository.py
+│   │   └── avaliacao_repository.py
+│   │
+│   └── controllers/             # (CONTROLLER) Rotas da API
+│       ├── __init__.py
+│       ├── aluno_controller.py
+│       ├── professor_controller.py
+│       ├── prova_controller.py
+│       └── avaliacao_controller.py
+│
+└── tests/                       # Testes automatizados
+    ├── __init__.py
+    ├── test_main.py
+    ├── test_aluno.py
+    └── ...

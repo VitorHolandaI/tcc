@@ -1,7 +1,6 @@
-# ProctorLCC
-(obs --> codigo desenvolvido no self-hosted gitea)
+# Test Maker Platform
 
-Plataforma de aplicacao de provas de programacao com monitoramento comportamental por IA.
+Plataforma de aplicacao de provas de programacao com monitoramento comportamental.
 
 Professores criam provas com questoes de codigo. Alunos resolvem diretamente no navegador, com um editor Monaco integrado. Durante a prova, o sistema captura tela, webcam e audio simultaneamente via WebSockets, e analisa o comportamento do aluno com modelos de machine learning.
 
@@ -60,6 +59,7 @@ docker-compose up --build
 ./run-all-services.sh --logs    # Ver logs
 ```
 
+Para setup completo (instalacao de dependencias, ambientes virtuais, banco de dados), consulte [FRESH_INSTALL.md](FRESH_INSTALL.md).
 
 ---
 
@@ -94,6 +94,7 @@ Credenciais de desenvolvimento: `postgresql://testmaker:testmaker123@localhost:5
 
 | Documento | Descricao |
 |-----------|-----------|
+| [FRESH_INSTALL.md](FRESH_INSTALL.md) | Instalacao em maquina nova, ambientes virtuais, configuracao |
 | [docs/COMO_RODAR.md](docs/COMO_RODAR.md) | Guia detalhado de execucao e troubleshooting |
 | [docs/SERVICES_ARCHITECTURE.md](docs/SERVICES_ARCHITECTURE.md) | Arquitetura completa, endpoints, fluxo de dados |
 | [docs/TESTING_GUIDE.md](docs/TESTING_GUIDE.md) | Guia de testes manuais e automatizados |

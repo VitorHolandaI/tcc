@@ -176,8 +176,13 @@ def list_my_provas_em_andamento(
     repo = ProvaRepository(db)
     all_provas = repo.list_by_professor(professor.id)
 
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
-    in_progress_provas = [p for p in all_provas if p.data_aplicacao <= now <= p.data_fim]
+    now = datetime.now(timezone.utc)
+
+    def _parse(date_str):
+        dt = datetime.fromisoformat(date_str)
+        return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
+
+    in_progress_provas = [p for p in all_provas if _parse(p.data_aplicacao) <= now <= _parse(p.data_fim)]
 
     return in_progress_provas
 

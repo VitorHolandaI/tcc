@@ -113,6 +113,28 @@ async def start_keystroke_analysis(
                 "status": "processing"
             }
 
+        if existing and existing.status == "completed":
+            return {
+                "status": "completed",
+                "prova_id": prova_id,
+                "aluno_id": aluno_id,
+                "typing_metrics": {
+                    "total_events": existing.total_events,
+                    "hold_time_avg": existing.hold_time_avg,
+                    "hold_time_std": existing.hold_time_std,
+                    "flight_time_avg": existing.flight_time_avg,
+                    "flight_time_std": existing.flight_time_std,
+                },
+                "suspicious_commands": {
+                    "command_counts": existing.command_counts,
+                    "suspicious_percentage": existing.suspicious_percentage,
+                    "total_commands": existing.total_commands,
+                    "avg_manhattan_distance": existing.avg_manhattan_distance,
+                    "command_sequences": existing.command_sequences,
+                },
+                "completed_at": existing.completed_at.isoformat() if existing.completed_at else None,
+            }
+
         if existing:
             db.delete(existing)
             db.commit()
