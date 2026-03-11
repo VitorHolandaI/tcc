@@ -1,21 +1,21 @@
 # FastAPI and server
 fastapi==0.109.0
 uvicorn==0.27.0
-python-multipart==0.0.6
+python-multipart==0.0.22
 websockets==12.0
 
 # Database
 sqlalchemy==2.0.25
-psycopg2-binary==2.9.9
+psycopg2-binary>=2.9.11
 
 # Firebase
-firebase-admin==6.4.0
+firebase-admin==6.8.0
 
 # Audio analysis (COMPATIBLE STACK)
 pyannote.audio==3.1.1
 
-torch==2.3.1
-torchaudio==2.3.1
+torch==2.6.0
+torchaudio==2.6.0
 
 numpy==1.26.4
 

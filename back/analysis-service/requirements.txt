@@ -1,14 +1,14 @@
 # FastAPI and server
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
-python-multipart==0.0.6
+python-multipart==0.0.22
 
 # Database
 sqlalchemy==2.0.25
-psycopg2-binary==2.9.9
+psycopg2-binary>=2.9.11
 
 # Firebase (JWT validation)
-firebase-admin==6.4.0
+firebase-admin==6.8.0
 
 # Video analysis
 opencv-python==4.9.0.80

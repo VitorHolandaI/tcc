@@ -22,7 +22,9 @@ class CurrentUser:
         if not self.email:
             return False
         PROFESSOR_WHITELIST = {"vitor.holanda@ccc.ufcg.edu.br"}
-        return self.email.endswith("@computacao.ufcg.edu.br") or self.email in PROFESSOR_WHITELIST
+        return (self.email.endswith("@computacao.ufcg.edu.br") or
+                self.email.endswith("@ccc.ufcg.edu.br") or
+                self.email in PROFESSOR_WHITELIST)
 
     def is_aluno(self) -> bool:
         """Check if user is an aluno (student)"""

@@ -130,3 +130,36 @@ pnpm-debug.log*
 .idea/
 *.swp
 *.tar
+
+# =========================
+# Analysis experiments (local only)
+# =========================
+analise/
+
+# =========================
+# Media / Recordings (private student data)
+# =========================
+*.wav
+*.webm
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.mp4
+*.mkv
+back/recording-service/recordings/
+back/public_records/
+analise/gravacoes_usadas/
+analise/audio/audio*.wav
+analise/recording.wav
+analise/recording/back/recordings/
+
+# ML model binaries
+back/analysis-service/models/*.task
+back/analysis-service/models/*.tflite
+
+# Runtime data
+back/recording-service/recordings/segments/
+Session.vim
