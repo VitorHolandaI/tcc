@@ -7,10 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  backend:
-    name: Backend Tests
+  backend-main:
+    name: Main API Tests
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -22,32 +21,67 @@ jobs:
       - name: Set up Python 3.11
         run: uv python install 3.11
 
-      - name: Create venv and install dependencies
+      - name: Install dependencies
         working-directory: back
         run: |
           uv venv .venv --python 3.11
-          uv pip install \
-            -r similarity-service/requirements.txt \
-            -r keystroke-service/requirements.txt \
-            -r requirements.txt \
-            --upgrade
+          uv pip install -r requirements.txt
 
-      - name: Run Main API tests
+      - name: Run tests
         working-directory: back
         run: .venv/bin/python -m pytest tests/ -v --tb=short
 
-      - name: Run Keystroke Service tests
-        working-directory: back/keystroke-service
-        run: ../.venv/bin/python -m pytest test_main.py -v --tb=short
+  backend-keystroke:
+    name: Keystroke Service Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Run Similarity Service tests
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Set up Python 3.11
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        working-directory: back/keystroke-service
+        run: |
+          uv venv .venv --python 3.11
+          uv pip install -r requirements.txt
+
+      - name: Run tests
+        working-directory: back/keystroke-service
+        run: .venv/bin/python -m pytest test_main.py -v --tb=short
+
+  backend-similarity:
+    name: Similarity Service Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Set up Python 3.11
+        run: uv python install 3.11
+
+      - name: Install dependencies
         working-directory: back/similarity-service
-        run: ../.venv/bin/python -m pytest test_analyzer.py test_main.py -v --tb=short
+        run: |
+          uv venv .venv --python 3.11
+          uv pip install -r requirements.txt
+
+      - name: Run tests
+        working-directory: back/similarity-service
+        run: .venv/bin/python -m pytest test_analyzer.py test_main.py -v --tb=short
 
   frontend:
     name: Frontend Build
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
