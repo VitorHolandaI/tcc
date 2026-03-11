@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [main, fix_comments]
+    branches: [main, security_fixing]
   pull_request:
     branches: [main]
 
