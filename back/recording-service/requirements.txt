@@ -4,5 +4,5 @@ websockets==12.0
 sqlalchemy==2.0.25
 psycopg2-binary>=2.9.11
 firebase-admin==6.8.0
-python-multipart==0.0.22
+python-multipart==0.0.26
 pydantic[email]
