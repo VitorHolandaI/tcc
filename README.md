@@ -6,6 +6,12 @@ Professores criam provas com questoes de codigo. Alunos resolvem diretamente no 
 
 ---
 
+## Trabalho de Conclusão de Curso
+
+Este repositório é o código do TCC "Plataforma de Proctoring Multimodal para Suporte à Decisão", do Bacharelado em Ciência da Computação da UFCG (2026), orientado pelo prof. Thiago Emmanuel Pereira da Cunha Silva. A monografia está em [`docs/TCC_Plataforma_de_Proctoring_Multimodal.pdf`](docs/TCC_Plataforma_de_Proctoring_Multimodal.pdf).
+
+---
+
 ## Arquitetura
 
 O sistema e composto por 7 microservicos independentes, um frontend React e um banco de dados PostgreSQL.
